@@ -47,6 +47,7 @@
 
 <script>
 import Header from "./pages/Header.vue";
+
 import Footer from "./pages/Footer.vue";
 export default {
   name: "App",
