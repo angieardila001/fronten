@@ -4,11 +4,11 @@
       <v-col cols="3" v-for="(p, i) in favoritos1" :key="i">
 
         <v-card class="mx-auto" max-width="344" @click="informa(p)">
-          <v-img :src="p.poster" height="250px"></v-img>
+          <v-img :src="p.idpelicula.poster" height="250px"></v-img>
 
-          <v-card-title> {{ p.titulo }} </v-card-title>
+          <v-card-title> {{ p.idpelicula.titulo }} </v-card-title>
 
-          <v-card-subtitle> {{ p.categoria }} </v-card-subtitle>
+          <v-card-subtitle> {{ p.idpelicula.categoria }} </v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>
@@ -38,7 +38,7 @@ console.log("id",this.$store.state.datos._id);
         )
         .then((res) => {
           console.log(res);
-          this.favoritos1 = res.data.favoritos;
+          this.favoritos1 = res.data.favorito;
           console.log("fa",this.favoritos1);
         })
         .catch((err) => {
