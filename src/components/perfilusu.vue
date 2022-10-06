@@ -92,8 +92,7 @@
               <input id="bordi2" type="text" v-model="apellido" />
               <h3>Email:</h3>
               <input id="bordi2" type="text" v-model="email" />
-              <h3>Contraseña:</h3>
-              <input id="bordi2" type="text" v-model="password" /><br />
+             
               <br>
               <v-btn color="#76FF03" @click="editar()">
                 <v-icon>mdi-pencil</v-icon> Editar</v-btn

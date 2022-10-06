@@ -1,6 +1,9 @@
  <template>
   <v-container>
     <v-row>
+      <v-row>
+
+      
       <v-alert
         :value="alert"
         transition="scale-transition"
@@ -24,6 +27,8 @@
         Por favor Registrate o Inicia Sesion
         <v-btn to="/" class="mt-6" color="red">Ir A Iniciar Sesion</v-btn>
       </v-alert>
+    </v-row>
+    <v-row>
       <v-col cols="3" v-for="(p, i) in peliculas" :key="i" >
         <v-card class="mx-auto" max-width="344">
            <v-btn icon dark color="black" @click="favorito(p)">
@@ -32,7 +37,13 @@
               {{ active ? "mdi-heart" : "mdi-heart-outline" }}
             </v-icon>
           </v-btn>
-          <v-img :src="p.poster" height="250px" @click="informa(p)"></v-img>
+          <v-btn icon dark color="black" @click="eleminar(p)">
+           
+           <v-icon>
+             {{ active ? "mdi-close" : "mdi-close-octagon" }}
+           </v-icon>
+         </v-btn>
+          <v-img :src="p.poster" height="250px" @click="informa(p)"> </v-img>
 
           <v-card-title> {{ p.titulo }} </v-card-title>
 
@@ -63,6 +74,24 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <v-dialog v-model="dialog1" width="500">
+        <v-card>
+          <v-card-title class="text-h5 grey lighten-2">
+            Felicitaciones!!
+          </v-card-title>
+
+          <v-card-text>
+            Acabas de eleminar una pelicula
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" to="/" text @click="dialog = false"> Ok </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-bottom-sheet v-model="sheet">
               <v-sheet justify="center" class="text-center" height="600px">
                 <div class="py-3">
@@ -80,6 +109,7 @@
                 </v-btn>
               </v-sheet>
             </v-bottom-sheet>
+          </v-row>
     </v-row>
   </v-container>
 </template> 
@@ -93,7 +123,7 @@ export default {
     
       token: this.$store.state.token,
       dialog: false,
-     
+      dialog1: false,
       peliculas: [],
    
        sheet: false,
@@ -179,7 +209,7 @@ export default {
           `https://angiepelicula.herokuapp.com/api/favorito`,
           {
             idusuario: this.$store.state.datos._id,
-            idpelicula: this.$store.state.pelicula._id,
+            idpelicula: p._id,
           },
           header
         )
@@ -209,6 +239,34 @@ export default {
     boton(){
       this.$router.push("/categorias")
     },
+    eleminar(p){
+      let header = { headers: { "x-token": this.$store.state.token } };
+      axios
+        .delete(
+          `https://angiepelicula.herokuapp.com/api/pelicula/titulo/${p.titulo}`,header
+        )
+        .then((res) => {
+          console.log(res);
+          
+          console.log(p);
+          this.pe = p;
+          this.dialog1 = true;
+        })
+        .catch((err) => {
+          if (err.response.data.msg === "No hay token en la peticion") {
+            this.alert1 = true;
+          } else {
+            this.alert = true;
+            console.log(err);
+
+            this.alertas = err.response.data;
+
+            console.log("revisar", this.alerta);
+            this.alerta = err.response.data.errors;
+            console.log(err.response.data.errors[0].msg);
+          }
+        });
+    }
     
    
   },

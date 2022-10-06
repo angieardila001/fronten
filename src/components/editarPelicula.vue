@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-col cols-lg="4" justify="center" class="pa-7">
         <v-img
-          id="borde1"
+          
           :src="$store.state.pelicula.poster"
           aspect-ratio="1.7"
           :height="height"
@@ -31,23 +31,79 @@
           "
         >
           <h3 class="black--text">Titulo</h3>
-          <input id="bordi" type="text" v-model="titulo" />
-          <h3 class="black--text">Subtitulo</h3>
-          <input id="bordi" type="text" v-model="subtitulo" />
+          <v-text-field
+              v-model="titulo"
+              :counter="50"
+              :rules="tituloRules"
+              label="Titulo"
+              required
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+            ></v-text-field>
+            <v-text-field
+              v-model="subtitulo"
+              :counter="50"
+              :rules="subtituloRules"
+              label="Subtitulo"
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+            ></v-text-field>
+
           <h3 class="black--text">Sinopsis</h3>
-          <input id="bordi" type="text" v-model="sinopsis" />
-          <h3 class="black--text">Duracion</h3>
-          <input id="bordi" type="text" v-model="duracion" />
+          <v-textarea
+              filled
+              name="input-7-4"
+              label="Sinopsis"
+              :counter="500"
+              v-model="sinopsis"
+              :rules="sinopsisRules"
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+            ></v-textarea>
+            <v-text-field
+              v-model="duracion"
+              :counter="25"
+              :rules="duracionRules"
+              label="Duracion"
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+              required
+            ></v-text-field>
           <h3 class="black--text">Fecha Publicacion</h3>
-          <input id="bordi" type="text" v-model="fechaPublicacion" />
+          <v-text-field
+              v-model="fechaPublicacion"
+              :counter="25"
+              
+              label="Fecha Publicacion"
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+              required
+            ></v-text-field>
           <h3 class="black--text">Categoria</h3>
-          <input id="bordi" type="text" v-model="categoria" />
+          <v-text-field
+              v-model="categoria"
+              :counter="25"
+              
+              label="Categoria"
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+              required
+            ></v-text-field>
           <h3 class="black--text">Creador</h3>
-          <input id="bordi" type="text" v-model="creador" />
+          <v-text-field
+              v-model="creador"
+              :counter="35"
+              :rules="creadorRules"
+              label="Creador"
+              background-color="grey lighten-2"
+              class="font-weight-bold black--text"
+              required
+            ></v-text-field>
           <br />
           <input class="black--text" type="file" @change="subir" />
           <br />
           <v-btn @click="login()">Editar</v-btn>
+          
         </v-col>
       </v-col>
     </v-row>
@@ -59,8 +115,8 @@ export default {
   name: "PageEditarPelicula",
   data() {
     return {
-      height: 700,
-      width: 600,
+      height: 500,
+      width: 500,
       titulo: this.$store.state.pelicula.titulo,
       subtitulo: this.$store.state.pelicula.subtitulo,
       sinopsis: this.$store.state.pelicula.sinopsis,
@@ -68,7 +124,36 @@ export default {
       fechaPublicacion: this.$store.state.pelicula.fechaPublicacion,
       categoria: this.$store.state.pelicula.categoria,
       creador: this.$store.state.pelicula.creador,
-      img:""
+      id:this.$store.state.pelicula._id,
+      img:"",
+      tituloRules: [
+        (v) => !!v || "Titulo es requerido",
+        (v) => (v && v.length <= 50) || "el titulo es de maximo ",
+      ],
+      subtituloRules: [
+        (v) => (v && v.length <= 50) || "el subtitulo es de maximo 50",
+      ],
+      sinopsisRules: [
+        (v) => !!v || "Sinopsis es requerido",
+        (v) => (v && v.length <= 500) || "la sinopsis es de maximo 500",
+      ],
+      duracionRules: [
+        (v) => !!v || "Duracion es requerido",
+        (v) => (v && v.length <= 25) || "la duracion es de maximo 25",
+      ],
+      dateRules: [
+        (v) => !!v || "La fecha es requerido",
+        (v) =>
+          (v && v.length <= 50) || "la fecha de publicacion es de maximo 50",
+      ],
+      categoriaRules: [
+        (v) => !!v || "Categoria es requerido",
+        (v) => (v && v.length <= 25) || "la categoria es de maximo 25",
+      ],
+      creadorRules: [
+        (v) => !!v || "Creador es requerido",
+        (v) => (v && v.length <= 35) || "el creador es de maximo 35",
+      ],
     };
   },
 
@@ -77,7 +162,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .put(
-          `https://angiepelicula.herokuapp.com/api/pelicula/${this.$store.state.pelicula._id}`,
+          `https://angiepelicula.herokuapp.com/api/pelicula/${this.id}`,
           {
             titulo: this.titulo,
             subtitulo: this.subtitulo,
@@ -87,7 +172,7 @@ export default {
             categoria: this.categoria,
             creador: this.creador,
 
-            reparto: this.$store.state.reparto,
+           
           },
           header
         )
@@ -131,7 +216,7 @@ export default {
 
   justify-content: center;
   text-justify: center;
-  border: solid 2px #000000 !important;
+  border: solid 1px #000000 !important;
 }
 #borde1 {
   background: white;

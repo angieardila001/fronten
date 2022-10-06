@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols-lg="2" justify="center"> 
           <v-img
-          src="https://img.freepik.com/vector-premium/cartel-neon-cine_110464-145.jpg?w=1000"
+          src="./login1.png"
           aspect-ratio="1.7"
           :height="height"
           :width="width"

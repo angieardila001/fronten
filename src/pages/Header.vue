@@ -10,18 +10,18 @@
       <v-toolbar-title class="white--text mb-2">Peliculas</v-toolbar-title>
       <v-spacer></v-spacer>
       
-      <v-btn icon to="/favoritos" >
+      <v-btn icon v-if="$store.state.token!=''" to="/favoritos" >
         <v-icon class="white--text">mdi-heart</v-icon>
       </v-btn>
 
-      <v-btn icon >
+      <v-btn icon v-if="$store.state.token!=''" >
         <v-icon class="white--text">mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn class="white--text"  to="/helo" icon> Inicio </v-btn>
+      <v-btn class="white--text" v-if="$store.state.token!=''"  to="/helo" icon> Inicio </v-btn>
     <br>
       <div class="my-6" >
-        <v-btn id="bo" color="#B71C1C" fab dark to="/perfil">
+        <v-btn id="bo" v-if="$store.state.token!=''"  color="#B71C1C" fab dark to="/perfil">
           <v-icon>mdi-account-circle</v-icon>
         </v-btn>
       </div>
@@ -38,14 +38,14 @@
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>Categorias</v-list-item-title>
           </v-list-item>
 
           <v-list-item to="/">
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title>Iniciar Sesion</v-list-item-title>
           </v-list-item>
           <v-list-item to="/favoritos">
             <v-list-item-icon>

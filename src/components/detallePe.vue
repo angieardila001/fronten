@@ -4,36 +4,43 @@
       <v-btn class="ma-2" to="/informacion" color="blue lighten-2" dark>
         <v-icon dark left> mdi-arrow-left </v-icon>Atras
       </v-btn>
-      <v-btn fab dark small color="green" @click="lleEditar()">
+      <v-btn fab dark small color="green" v-if="$store.state.token!=''"  @click="lleEditar()">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-col cols="12">
-        <v-alert
-          :value="alert"
-          transition="scale-transition"
-          text
-          prominent
-          type="error"
-          icon="mdi-cloud-alert"
-          v-for="(p, i) in alerta"
-          :key="i"
-        >
-          {{ p.msg }}
-        </v-alert>
-        <v-alert
-          class="content-justify-center"
-          :value="alert1"
-          transition="scale-transition"
-          text
-          prominent
-          type="error"
-          icon="mdi-cloud-alert"
-        >
-          Por favor Registrate o Inicia Sesion
-          <v-btn to="/" color="red">Ir A Iniciar Sesion</v-btn>
-        </v-alert>
+        <v-row>
+          <br />
+          <br />
+          <v-alert
+            :value="alert"
+            transition="scale-transition"
+            text
+            prominent
+            type="error"
+            icon="mdi-cloud-alert"
+            v-for="(p, i) in alerta"
+            :key="i"
+          >
+            {{ p.msg }}
+          </v-alert>
+          <br />
+          <v-alert
+            class="content-justify-center"
+            :value="alert1"
+            transition="scale-transition"
+            text
+            prominent
+            type="error"
+            icon="mdi-cloud-alert"
+          >
+            Por favor Registrate o Inicia Sesion
+            <v-btn to="/" color="red">Ir A Iniciar Sesion</v-btn>
+          </v-alert>
+        </v-row>
         <v-row>
           <v-col cols="6" class="justify-center mb-6">
+            <br />
+            <br />
             <v-img
               :src="pelicula.poster"
               aspect-ratio="1.7"
@@ -42,20 +49,23 @@
               contain
               elevation="12"
             ></v-img>
-            <input type="file" @change="subir" />
+            <br />
+            <input v-if="$store.state.token!=''" type="file" @change="subir" />
             <br />
           </v-col>
-          <v-col cols="5" class="
-            my-12
-            justify-center
-            text-center
-            white--text
-            pa-4
-            text-center
-            s
-            text-no-wrap
-            rounded-xl
-          ">
+          <v-col
+            cols="5"
+            class="
+              my-12
+              justify-center
+              text-center
+              white--text
+              text-center
+              s
+              text-no-wrap
+              rounded-xl
+            "
+          >
             <v-col
               cols="10"
               contain
@@ -63,21 +73,13 @@
                 justify-center
                 text-center
                 black--text
-                pa-4
+                rounded-xl
                 text-center
                 s
                 text-no-wrap
               "
             >
-              <br />
-              <br />
-              <br />
-              <v-card
-                id="bor1"
-               
-                contain
-                justify="center"
-              >
+              <v-card id="bor1" class="rounded-xl" contain justify="center">
                 <br />
 
                 <h1 class="font-italic" color="indigo darken-4">
@@ -169,8 +171,8 @@ export default {
       alert1: false,
       alerta: [],
       alertas: [],
-      height: 700,
-      width: 700,
+      height: 500,
+      width: 500,
       pelicula: this.$store.state.pelicula,
       reparto: this.$store.state.pelicula.reparto,
       datosactor: this.$store.state.pelicula.reparto.datosactor,
