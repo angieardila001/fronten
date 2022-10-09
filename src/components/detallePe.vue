@@ -188,7 +188,7 @@ export default {
       console.log(fd);
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/pelicula/uploadcloud/${this.$store.state.pelicula._id}`,
+          `https://angpelicula.herokuapp.com/api/pelicula/uploadcloud/${this.$store.state.pelicula._id}`,
           fd,
           header
         )

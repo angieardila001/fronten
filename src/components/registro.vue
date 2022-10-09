@@ -174,7 +174,7 @@ import axios from "axios";
     methods: {
     login() {
  
-      axios.post("https://angiepelicula.herokuapp.com/api/usuario/post", {rol:this.rol,nombre:this.nombre,apellido:this.apellido,email:this.email, password:this.contraseña})
+      axios.post("https://angpelicula.herokuapp.com/api/usuario/post", {rol:this.rol,nombre:this.nombre,apellido:this.apellido,email:this.email, password:this.contraseña})
       .then(res=>{
         console.log(res);
         this.sheet = !this.sheet

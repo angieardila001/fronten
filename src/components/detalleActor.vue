@@ -113,7 +113,7 @@ export default {
       console.log(fd);
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/actor/uploadcloud/${this.$store.state.detalleActor._id}`,
+          `https://angpelicula.herokuapp.com/api/actor/uploadcloud/${this.$store.state.detalleActor._id}`,
           fd,
           header
         )

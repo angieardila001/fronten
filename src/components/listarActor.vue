@@ -147,7 +147,7 @@ export default {
     traerpeliculas() {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
-        .get("https://angiepelicula.herokuapp.com/api/actor", header)
+        .get("https://angpelicula.herokuapp.com/api/actor", header)
         .then((res) => {
           console.log(res);
           this.peliculas = res.data.actores;

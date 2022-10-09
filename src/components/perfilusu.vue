@@ -160,7 +160,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .get(
-          `https://angiepelicula.herokuapp.com/api/usuario/idusuario/${this.$store.state.datos._id}`,
+          `https://angpelicula.herokuapp.com/api/usuario/idusuario/${this.$store.state.datos._id}`,
           header
         )
         .then((res) => {
@@ -180,7 +180,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .put(
-          `https://angiepelicula.herokuapp.com/api/usuario/${this.$store.state.datos._id}`,
+          `https://angpelicula.herokuapp.com/api/usuario/${this.$store.state.datos._id}`,
           {
             rol: this.rol,
             nombre: this.nombre,
@@ -219,7 +219,7 @@ export default {
       console.log(fd);
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/usuario/uploadcloud/${this.$store.state.datos._id}`,
+          `https://angpelicula.herokuapp.com/api/usuario/uploadcloud/${this.$store.state.datos._id}`,
           fd,
           header
         )

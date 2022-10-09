@@ -162,7 +162,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .put(
-          `https://angiepelicula.herokuapp.com/api/pelicula/${this.id}`,
+          `https://angpelicula.herokuapp.com/api/pelicula/${this.id}`,
           {
             titulo: this.titulo,
             subtitulo: this.subtitulo,
@@ -193,7 +193,7 @@ export default {
       console.log(fd);
       axios
         .put(
-          `https://angiepelicula.herokuapp.com/api/pelicula/${this.$store.state.pelicula._id}`,
+          `https://angpelicula.herokuapp.com/api/pelicula/${this.$store.state.pelicula._id}`,
           fd,
           header
         )

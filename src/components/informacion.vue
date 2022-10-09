@@ -136,7 +136,7 @@ export default {
   methods: {
     traerpeliculas() {
       let header = { headers: { "x-token": this.$store.state.token } };
-      axios.get("https://angiepelicula.herokuapp.com/api/pelicula", header)
+      axios.get("https://angpelicula.herokuapp.com/api/pelicula", header)
         .then((res) => {
           console.log(res);
           this.peliculas = res.data.peliculas;
@@ -172,7 +172,7 @@ export default {
       console.log(fd);
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/pelicula/uploadcloud/${this.$store.state.pelicula._id}`,
+          `https://angpelicula.herokuapp.com/api/pelicula/uploadcloud/${this.$store.state.pelicula._id}`,
           fd,
           header
         )
@@ -206,7 +206,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/favorito`,
+          `https://angpelicula.herokuapp.com/api/favorito`,
           {
             idusuario: this.$store.state.datos._id,
             idpelicula: p._id,
@@ -243,7 +243,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .delete(
-          `https://angiepelicula.herokuapp.com/api/pelicula/titulo/${p.titulo}`,header
+          `https://angpelicula.herokuapp.com/api/pelicula/titulo/${p.titulo}`,header
         )
         .then((res) => {
           console.log(res);

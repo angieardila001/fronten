@@ -33,7 +33,7 @@ console.log("id",this.$store.state.datos._id);
       axios
         .get(
           
-          `https://angiepelicula.herokuapp.com/api/favorito/listar/${this.$store.state.datos._id}`,
+          `https://angpelicula.herokuapp.com/api/favorito/listar/${this.$store.state.datos._id}`,
           header
         )
         .then((res) => {
@@ -50,7 +50,7 @@ console.log("id",this.$store.state.datos._id);
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/favorito`,
+          `https://angpelicula.herokuapp.com/api/favorito`,
           {
             idusuario: this.$store.state.datos._id,
             idpelicula: this.$store.state.pelicula._id,

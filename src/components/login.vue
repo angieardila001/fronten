@@ -148,7 +148,7 @@ export default {
   methods: {
     login() {
       axios
-        .post("https://angiepelicula.herokuapp.com/api/usuario/login1", {
+        .post("https://angpelicula.herokuapp.com/api/usuario/login1", {
           email: this.correo,
           password: this.password,
         })

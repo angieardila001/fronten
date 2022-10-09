@@ -158,7 +158,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .post(
-          "https://angiepelicula.herokuapp.com/api/actor/",
+          "https://angpelicula.herokuapp.com/api/actor/",
           {
             nombre: this.nombre,
             biografia: this.biografia,
@@ -198,7 +198,7 @@ export default {
       console.log(fd);
       axios
         .post(
-          `https://angiepelicula.herokuapp.com/api/actor/uploadcloud/${this.$store.state.actor._id}`,
+          `https://angpelicula.herokuapp.com/api/actor/uploadcloud/${this.$store.state.actor._id}`,
           fd,
           header
         )
