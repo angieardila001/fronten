@@ -168,7 +168,8 @@ export default {
           header
         )
         .then((res) => {
-          console.log(res);
+          res
+          //console.log(res);
           this.sheet = !this.sheet;
         })
         .catch((err) => {
@@ -176,13 +177,13 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
     },
@@ -191,23 +192,23 @@ export default {
     },
     subir(e) {
       this.img = e.target.files[0];
-      console.log(this.img);
+      //console.log(this.img);
       let fd = new FormData();
       fd.append("archivo", this.img);
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(fd);
+      //console.log(fd);
       axios
         .post(
           `https://angpelicula.herokuapp.com/api/actor/uploadcloud/${this.$store.state.actor._id}`,
           fd,
           header
         )
-        .then((response) => {
+       /*  .then((response) => {
           console.log(response.data.url);
         })
         .catch((error) => {
           console.log(error);
-        });
+        }); */
     },
   },
 };

@@ -42,7 +42,7 @@
      
           <v-card-actions>
             <v-row class="mx-auto">
-               <v-btn
+               <v-btn v-if="$store.state.datos.rol==='admi'"
                     color="indigo accent-1 white--text"
                     dark
                    @click="agregar(p)"
@@ -128,8 +128,7 @@ export default {
   name: "PageListarActor",
   data() {
     return {
-      height: 400,
-      width: 650,
+   
       alert1: false,
       sheet: false,
       token: this.$store.state.token,
@@ -149,7 +148,7 @@ export default {
       axios
         .get("https://angpelicula.herokuapp.com/api/actor", header)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.peliculas = res.data.actores;
           this.$store.commit("setActor", res.data.actores);
         })
@@ -158,13 +157,13 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
     },
@@ -184,7 +183,7 @@ export default {
         datosactor: this.pe,
       };
       this.$store.commit("setReparto", this.re);
-      console.log("reparto", this.reparto);
+      //console.log("reparto", this.reparto);
       this.rol="";
       this.personaje=""
      
@@ -198,7 +197,7 @@ export default {
     },
 
     agregar(p){
-      console.log(p);
+      //console.log(p);
       this.pe=p
       this.dialog=true
     }

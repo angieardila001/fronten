@@ -14,15 +14,12 @@
         <v-icon class="white--text">mdi-heart</v-icon>
       </v-btn>
 
-      <v-btn icon v-if="$store.state.token!=''" >
-        <v-icon class="white--text">mdi-magnify</v-icon>
-      </v-btn>
-
       <v-btn class="white--text" v-if="$store.state.token!=''"  to="/helo" icon> Inicio </v-btn>
     <br>
+    
       <div class="my-6" >
-        <v-btn id="bo" v-if="$store.state.token!=''"  color="#B71C1C" fab dark to="/perfil">
-          <v-icon>mdi-account-circle</v-icon>
+        <v-btn  v-if="$store.state.token!=''" class="white--text" @click="salir()" color="#B71C1C"  >
+          <v-icon color="white" >mdi-logout</v-icon>SALIR
         </v-btn>
       </div>
       
@@ -34,6 +31,12 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
+        <v-list-item v-if="$store.state.token!=''"  to="/perfil">
+            <v-list-item-icon>
+              <v-icon>mdi-account-circle</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Cuenta</v-list-item-title>
+          </v-list-item>
           <v-list-item to="/helo">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
@@ -41,11 +44,11 @@
             <v-list-item-title>Categorias</v-list-item-title>
           </v-list-item>
 
-          <v-list-item to="/">
+          <v-list-item to="/" v-if="$store.state.token==''">
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Iniciar Sesion</v-list-item-title>
+            <v-list-item-title>Iniciar Sesión</v-list-item-title>
           </v-list-item>
           <v-list-item to="/favoritos">
             <v-list-item-icon>
@@ -100,6 +103,12 @@ export default {
     group: null,
     token: this.$store.state.token,
   }},
+  methods: {
+    salir(){
+      this.$store.state.token="";
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 <style>

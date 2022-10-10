@@ -305,7 +305,7 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios
         .post(
-          "https://angpelicula.herokuapp.com/api/pelicula",
+          "https://angpelicula.herokuapp.com/api/pelicula/post",
           {
             titulo: this.titulo,
             subtitulo: this.subtitulo,
@@ -320,21 +320,23 @@ export default {
           header 
         )
         .then((res) => {
-          console.log(res);
+          res
+          //console.log(res);
           this.sheet = !this.sheet;
+          this.$store.state.reparto=""
         })
         .catch((err) => {
           if (err.response.data.msg === "No hay token en la peticion") {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
     },
@@ -343,23 +345,18 @@ export default {
     },
     subir(e) {
       this.img = e.target.files[0];
-      console.log(this.img);
+      //console.log(this.img);
       let fd = new FormData();
       fd.append("archivo", this.img);
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(fd);
+      //console.log(fd);
       axios
         .post(
           `https://angpelicula.herokuapp.com/api/pelicula/uploadcloud/${this.$store.state.pelicula._id}`,
           fd,
           header
         )
-        .then((response) => {
-          console.log(response.data.url);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      
     },
     next() {
       this.onboarding =

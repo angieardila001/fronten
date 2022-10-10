@@ -175,19 +175,19 @@ import axios from "axios";
     login() {
  
       axios.post("https://angpelicula.herokuapp.com/api/usuario/post", {rol:this.rol,nombre:this.nombre,apellido:this.apellido,email:this.email, password:this.contraseña})
-      .then(res=>{
-        console.log(res);
+      .then(res=>{res
+        //console.log(res);
         this.sheet = !this.sheet
       })
       .catch(err =>{
         this.alert = true;
-          console.log(err);
+        //console.log(err);
           this.alert1 = true;
           this.alertas = err.response.data;
 
-          console.log("revisar", this.alerta);
+          //console.log("revisar", this.alerta);
           this.alerta = err.response.data.errors;
-          console.log(err.response.data.errors[0].msg);
+          //console.log(err.response.data.errors[0].msg);
       })
     },
     

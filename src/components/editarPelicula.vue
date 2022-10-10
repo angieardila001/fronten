@@ -30,7 +30,32 @@
             rounded-xl
           "
         >
-          <h3 class="black--text">Titulo</h3>
+        <v-alert
+              :value="alert"
+              transition="scale-transition"
+              text
+              prominent
+              type="error"
+              icon="mdi-cloud-alert"
+              v-for="(p, i) in alerta"
+              :key="i"
+            >
+              {{ p.msg }}
+            </v-alert>
+            <v-alert
+              :value="alert1"
+              transition="scale-transition"
+              text
+              prominent
+              type="error"
+              icon="mdi-cloud-alert"
+            >
+              Por favor Registrate o Inicia Sesion
+              <v-btn to="/" class="mt-6" text color="red"
+                >Ir A Iniciar Sesion</v-btn
+              >
+            </v-alert>
+          
           <v-text-field
               v-model="titulo"
               :counter="50"
@@ -107,7 +132,24 @@
         </v-col>
       </v-col>
     </v-row>
+    <v-bottom-sheet v-model="sheet">
+              <v-sheet justify="center" class="text-center" height="600px">
+                <div class="py-3">
+                  Felicidades, puedes ir a ver mas peliculas 
+                </div>
+                <v-btn
+                  to="/informacion"
+                  class="mt-6"
+                  text
+                  color="red"
+                  @click="sheet = !sheet"
+                >
+                  Ir a ver Peliculas
+                </v-btn>
+              </v-sheet>
+            </v-bottom-sheet>
   </div>
+
 </template>
 <script>
 import axios from "axios";
@@ -115,6 +157,11 @@ export default {
   name: "PageEditarPelicula",
   data() {
     return {
+      sheet: false,
+      alert: false,
+      alert1: false,
+      alerta: [],
+      alertas: [],
       height: 500,
       width: 500,
       titulo: this.$store.state.pelicula.titulo,
@@ -177,32 +224,39 @@ export default {
           header
         )
         .then((res) => {
-          console.log(res);
+          this.sheet = !this.sheet;
+          res
+          //console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.data.msg === "No hay token en la peticion") {
+            this.alert1 = true;
+          } else {
+            this.alert = true;
+            //console.log(err);
+
+            this.alertas = err.response.data;
+
+            //console.log("revisar", this.alerta);
+            this.alerta = err.response.data.errors;
+            //console.log(err.response.data.errors[0].msg);
+          }
         });
     },
 
     subir(e) {
       this.img = e.target.files[0];
-      console.log(this.img);
+      //console.log(this.img);
       let fd = new FormData();
       fd.append("archivo", this.img);
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(fd);
+      //console.log(fd);
       axios
         .put(
           `https://angpelicula.herokuapp.com/api/pelicula/${this.$store.state.pelicula._id}`,
           fd,
           header
         )
-        .then((response) => {
-          console.log(response.data.url);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     info() {
       this.$router.push("/listarA");

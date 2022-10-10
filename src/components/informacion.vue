@@ -54,8 +54,7 @@
        
       </v-col>
 
-      <v-btn v-if="$store.state.datos.rol==='admi'" @click="pelicula()">AÑADIR PELICULA</v-btn>
-      <v-btn v-if="$store.state.datos.rol==='admi'" @click="actor()">AÑADIR ACTOR</v-btn>
+      
       <v-dialog v-model="dialog" width="500">
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
@@ -138,10 +137,10 @@ export default {
       let header = { headers: { "x-token": this.$store.state.token } };
       axios.get("https://angpelicula.herokuapp.com/api/pelicula", header)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.peliculas = res.data.peliculas;
           this.$store.commit("setTodos",this.peliculas)
-          console.log("jj",this.$store.state.todos.i);
+          //console.log("jj",this.$store.state.todos.i);
         })
         .catch((err) => {
           
@@ -149,13 +148,13 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
     },
@@ -165,11 +164,11 @@ export default {
     },
     subir(e) {
       this.img = e.target.files[0];
-      console.log(this.img);
+      //console.log(this.img);
       let fd = new FormData();
       fd.append("archivo", this.img);
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(fd);
+      //console.log(fd);
       axios
         .post(
           `https://angpelicula.herokuapp.com/api/pelicula/uploadcloud/${this.$store.state.pelicula._id}`,
@@ -177,7 +176,8 @@ export default {
           header
         )
         .then((response) => {
-          console.log(response.data.url);
+          response
+          //console.log(response.data.url);
           this.sheet = !this.sheet;
         })
         .catch((error) => {
@@ -185,13 +185,13 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(error);
+            //console.log(error);
 
             this.alertas = error.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = error.response.data.errors;
-            console.log(error.response.data.errors[0].msg);
+            //console.log(error.response.data.errors[0].msg);
           }
           
         });
@@ -214,9 +214,9 @@ export default {
           header
         )
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.favoritos = res.data.favoritos;
-          console.log(p);
+          //console.log(p);
           this.pe = p;
           this.dialog = true;
         })
@@ -225,13 +225,13 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
 
@@ -246,10 +246,12 @@ export default {
           `https://angpelicula.herokuapp.com/api/pelicula/titulo/${p.titulo}`,header
         )
         .then((res) => {
-          console.log(res);
+          res
+          //console.log(res);
           
-          console.log(p);
-          this.pe = p;
+          //console.log("p",p);
+          this.pe = p._id;
+        
           this.dialog1 = true;
         })
         .catch((err) => {
@@ -257,16 +259,42 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
-    }
+
+        axios
+        .delete(
+          `https://angpelicula.herokuapp.com/api/favorito/${p._id}`,header
+        )
+        .then((res) => {res
+          //console.log(res);
+          
+      
+          this.dialog1 = true;
+        })
+        .catch((err) => {
+          if (err.response.data.msg === "No hay token en la peticion") {
+            this.alert1 = true;
+          } else {
+            this.alert = true;
+            //console.log(err);
+
+            this.alertas = err.response.data;
+
+            //console.log("revisar", this.alerta);
+            this.alerta = err.response.data.errors;
+            //console.log(err.response.data.errors[0].msg);
+          }
+        });
+    },
+    
     
    
   },

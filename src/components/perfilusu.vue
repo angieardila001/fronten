@@ -81,28 +81,66 @@
             </v-row>
           </v-expansion-panel-header>
 
-          <v-expansion-panel-content v-if="message.name==='Información Usuario'">
+          <v-expansion-panel-content
+            v-if="message.name === 'Información Usuario'"
+          >
             <v-divider></v-divider>
-            <v-card-text>
-              <h3>Rol:</h3>
-              <input id="bordi2" type="text" v-model="rol" />
-              <h3>Nombre:</h3>
-              <input id="bordi2" type="text" v-model="nombre" />
-              <h3>Apellido:</h3>
-              <input id="bordi2" type="text" v-model="apellido" />
-              <h3>Email:</h3>
-              <input id="bordi2" type="text" v-model="email" />
-             
-              <br>
+            <v-card-text  class="
+           
+            
+         
+            text-center
+            s
+            text-no-wrap
+            rounded-xl
+          ">
+              <v-text-field
+                v-model="rol"
+                :counter="25"
+                :rules="rolRules"
+                background-color="grey lighten-2"
+                class="font-weight-bold black--text"
+                label="Rol"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="nombre"
+                :counter="25"
+                :rules="nombreRules"
+                label="Nombre"
+                background-color="grey lighten-2"
+                class="font-weight-bold black--text"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="apellido"
+                :counter="25"
+                :rules="apellidoRules"
+                background-color="grey lighten-2"
+                class="font-weight-bold black--text"
+                label="Apellido"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                background-color="grey lighten-2"
+                class="font-weight-bold black--text"
+                label="E-mail"
+                required
+              ></v-text-field>
+
+              <br />
               <v-btn color="#76FF03" @click="editar()">
                 <v-icon>mdi-pencil</v-icon> Editar</v-btn
               ><br />
-              <br>
-              <br>
+              <br />
+              <br />
               <input type="file" @change="subir"
             /></v-card-text>
           </v-expansion-panel-content>
-         
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
@@ -147,14 +185,11 @@ export default {
           color: "green",
           icon: "mdi-account",
           name: "Información Usuario",
-          
-          
         },
-      
       ],
     };
   },
-
+//
   methods: {
     traerpeliculas() {
       let header = { headers: { "x-token": this.$store.state.token } };
@@ -164,15 +199,15 @@ export default {
           header
         )
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.usuarios = res.data.usuarios;
-          console.log("usuaeio", this.usuarios);
+          //console.log("usuaeio", this.usuarios);
         })
         .catch((err) => {
           if (err.response.data.msg === "No hay token en la peticion") {
             this.alert1 = true;
           } else {
-            console.log(err);
+            //console.log(err);
           }
         });
     },
@@ -191,7 +226,8 @@ export default {
           header
         )
         .then((res) => {
-          console.log(res);
+          res
+          //console.log(res);
           this.sheet = !this.sheet;
         })
         .catch((err) => {
@@ -199,24 +235,24 @@ export default {
             this.alert1 = true;
           } else {
             this.alert = true;
-            console.log(err);
+            //console.log(err);
 
             this.alertas = err.response.data;
 
-            console.log("revisar", this.alerta);
+            //console.log("revisar", this.alerta);
             this.alerta = err.response.data.errors;
-            console.log(err.response.data.errors[0].msg);
+            //console.log(err.response.data.errors[0].msg);
           }
         });
     },
 
     subir(e) {
       this.img = e.target.files[0];
-      console.log(this.img);
+      //console.log(this.img);
       let fd = new FormData();
       fd.append("archivo", this.img);
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(fd);
+      //console.log(fd);
       axios
         .post(
           `https://angpelicula.herokuapp.com/api/usuario/uploadcloud/${this.$store.state.datos._id}`,
@@ -224,19 +260,20 @@ export default {
           header
         )
         .then((response) => {
-          console.log(response.data.url);
+          response
+          //console.log(response.data.url);
           this.sheet = !this.sheet;
         })
         .catch((error) => {
-          console.log(error);
+          //console.log(error);
           this.alert = true;
-          console.log(error);
+          //console.log(error);
 
           this.alertas = error.response.data;
 
-          console.log("revisar", this.alerta);
+          //console.log("revisar", this.alerta);
           this.alerta = error.response.data.errors;
-          console.log(error.response.data.errors[0].msg);
+          //console.log(error.response.data.errors[0].msg);
         });
     },
     info() {

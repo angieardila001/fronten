@@ -92,7 +92,7 @@
             class="mr-4 justify-center white--text"
             @click="login()"
           >
-            Guardar</v-btn
+            Iniciar Sesión</v-btn
           >
           <br />
 
@@ -153,7 +153,7 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.$store.dispatch("setToken", res.data.token);
           this.$store.dispatch("setDatos", res.data.usuario);
 
@@ -165,13 +165,13 @@ export default {
             this.alertas = err.response.data;
           } else{
           this.alert = true;
-          console.log(err);
+          //console.log(err);
           
           
 
-          console.log("revisar", this.alerta);
+          //console.log("revisar", this.alerta);
           this.alerta = err.response.data.errors;
-          console.log(err.response.data.errors[0].msg);
+          //console.log(err.response.data.errors[0].msg);
           }
           
         });

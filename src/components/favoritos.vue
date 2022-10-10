@@ -37,13 +37,13 @@ console.log("id",this.$store.state.datos._id);
           header
         )
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.favoritos1 = res.data.favorito;
-          console.log("fa",this.favoritos1);
+          //console.log("fa",this.favoritos1);
         })
-        .catch((err) => {
+       /*  .catch((err) => {
           console.log(err);
-        });
+        }); */
       },
 
     añadir() {
@@ -58,12 +58,12 @@ console.log("id",this.$store.state.datos._id);
           header
         )
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.favoritos = res.data.favoritos;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        // .catch((err) => {
+        //   console.log(err);
+        // });
     },
   },
   created() {

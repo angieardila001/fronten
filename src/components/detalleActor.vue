@@ -22,7 +22,7 @@
           :width="width"
           contain
         ></v-img>
-            <input type="file" @change="subir" />
+            <input v-if="$store.state.datos.rol==='admi'" type="file" @change="subir" />
           </v-col>
           <v-col cols="6">
             <v-col
@@ -41,9 +41,10 @@
               <v-card
                 aspect-ratio="1.7"
                 id="bor"
-                height="560px"
+                height="500px"
                 width="500px"
                 justify="center"
+                class="rounded-xl"
               >
                 <br />
                 <br />
@@ -62,9 +63,7 @@
 
                 <h3>Sinopsis</h3>
                 <div>{{ pelicula.biografia }}</div>
-                <v-btn color="success" class="mr-4">
-                  <v-icon>mdi-heart</v-icon>Favorite
-                </v-btn>
+                
               </v-card>
             </v-col>
           </v-col>
@@ -96,8 +95,8 @@ export default {
   name: "PagePelicula",
   data() {
     return {
-      height:700,
-      width: 700,
+      height:400,
+      width: 400,
       alert1: false,
       sheet: false,
       pelicula: this.$store.state.detalleActor,
@@ -106,11 +105,11 @@ export default {
   methods: {
     subir(e) {
       this.img = e.target.files[0];
-      console.log(this.img);
+      //console.log(this.img);
       let fd = new FormData();
       fd.append("archivo", this.img);
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(fd);
+      //console.log(fd);
       axios
         .post(
           `https://angpelicula.herokuapp.com/api/actor/uploadcloud/${this.$store.state.detalleActor._id}`,
@@ -118,14 +117,15 @@ export default {
           header
         )
         .then((response) => {
-          console.log(response.data.url);
+          response
+          //console.log(response.data.url);
           this.sheet = !this.sheet;
         })
         .catch((error) => {
           if (error.response.data.msg === "No hay token en la peticion") {
             this.alert1 = true;
           } else {
-            console.log(error);
+            //console.log(error);
           }
         });
     },
